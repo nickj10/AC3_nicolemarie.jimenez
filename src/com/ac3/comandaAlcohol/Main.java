@@ -10,11 +10,11 @@ public class Main {
     public static void main(String[] args) {
         Gson gson = new Gson();
         BufferedReader bufferedReader;
-        ResultData resultData;
+        GestioConsultes gestioConsultes;
         try {
             bufferedReader = new BufferedReader(new FileReader("data/C2H5OH.json"));
-            resultData = gson.fromJson(bufferedReader,ResultData.class);
-            resultData.startProgram();
+            gestioConsultes = gson.fromJson(bufferedReader,GestioConsultes.class);
+            gestioConsultes.startProgram();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
