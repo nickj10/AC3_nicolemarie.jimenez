@@ -116,7 +116,7 @@ public class GestioConsultes {
         return max;
     }
 
-    public int getMidaFundadors(Alcohol alcohol) {
+    private int getMidaFundadors(Alcohol alcohol) {
         int total = 0;
         int numFounders = alcohol.getFounders().length;
         for (int i = 0; i < numFounders; i++) {
