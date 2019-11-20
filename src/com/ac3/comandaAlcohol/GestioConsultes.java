@@ -43,6 +43,7 @@ public class GestioConsultes {
         return (option >= 1 && option <= 6);
     }
 
+    // Imprimir el menu principal per pantalla
     public void printMenu() {
         System.out.println("1. Calcular quantes begudes alcoholiques hi ha de cada tipus.");
         System.out.println("2. Mostrar una llista de begudes destilades (25-60) que es poden barrejar amb cola.");
@@ -53,6 +54,7 @@ public class GestioConsultes {
         System.out.println("Selecciona una opcio: ");
     }
 
+    // Calcular el número de begudes alcoholiques de cada tipus
     public void calcularBegudesAlcoholiques() {
         int numTipus = this.types.length;
         int numAlcohols = 0;
@@ -68,6 +70,7 @@ public class GestioConsultes {
         System.out.println();
     }
 
+    // Imprimir totes les begudes destillades que es poden combinar amb cola
     public void showDestilladesAmbCola() {
         for (Alcohol a: this.alcohols) {
             if(esDestillada(a) && canBeMixedWithCola(a)) {
@@ -77,10 +80,12 @@ public class GestioConsultes {
         System.out.println();
     }
 
+    // Verifica si una beguda és destil·lada o no
     private boolean esDestillada(Alcohol alcohol) {
         return (alcohol.getGraduation() >= 25 && alcohol.getGraduation() <= 60);
     }
 
+    // Verifica si una beguda es pot combinar amb cola
     private boolean canBeMixedWithCola(Alcohol alcohol) {
         int[] combinations = alcohol.getCombinations();
         int numCombinations = combinations.length;
@@ -91,10 +96,12 @@ public class GestioConsultes {
         return false;
     }
 
+    // Verifica si una beguda és de tipus Gin
     private boolean isGinebra(Alcohol alcohol) {
         return getNomTipus(alcohol.getType()).equals("Gin");
     }
 
+    // Agafa totes les begudes alcohòliques de tipus Gin
     private LinkedList<Alcohol> getGins() {
         LinkedList<Alcohol> gins = new LinkedList<Alcohol>();
         for(int i = 0; i < this.alcohols.length; i++) {
@@ -105,6 +112,7 @@ public class GestioConsultes {
         return gins;
     }
 
+    // Calcula quina beguda de tipus Gin té la major suma de la mida dels noms dels fundadors
     public Alcohol getMaxMidaFundadors() {
         LinkedList<Alcohol> gins = getGins();
         Alcohol max = gins.get(0);
@@ -116,6 +124,7 @@ public class GestioConsultes {
         return max;
     }
 
+    // Calcula la mida total dels noms dels fundadors de l'alcohol
     private int getMidaFundadors(Alcohol alcohol) {
         int total = 0;
         int numFounders = alcohol.getFounders().length;
@@ -125,6 +134,7 @@ public class GestioConsultes {
         return total;
     }
 
+    // Mostra per pantalla la informacio de la beguda alcoholica
     public void showFullInformationAlcohol(Alcohol alcohol) {
         System.out.println("Nom: " + alcohol.getNom());
         System.out.println("Graduacio: " + alcohol.getGraduation());
@@ -148,6 +158,7 @@ public class GestioConsultes {
         }
         System.out.println("\n");
     }
+
 
     private String getNomTipus (int id) {
         int numTipus = this.types.length;
