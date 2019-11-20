@@ -1,5 +1,6 @@
 package com.ac3.comandaAlcohol;
 
+import java.util.LinkedList;
 import java.util.Scanner;
 
 public class GestioConsultes {
@@ -26,6 +27,7 @@ public class GestioConsultes {
                     showDestilladesAmbCola();
                     break;
                 case 3:
+                    showFullInformationAlcohol(getMaxMidaFundadors());
                     break;
                 case 4:
                     break;
@@ -80,7 +82,7 @@ public class GestioConsultes {
     }
 
     private boolean canBeMixedWithCola(Alcohol alcohol) {
-        int[] combinations = alcohol.getConmbinations();
+        int[] combinations = alcohol.getCombinations();
         int numCombinations = combinations.length;
         for (int i = 0; i < numCombinations; i++) {
             if (combinations[i] == 1)
@@ -88,4 +90,84 @@ public class GestioConsultes {
         }
         return false;
     }
+
+    private boolean isGinebra(Alcohol alcohol) {
+        return getNomTipus(alcohol.getType()).equals("Gin");
+    }
+
+    private LinkedList<Alcohol> getGins() {
+        LinkedList<Alcohol> gins = new LinkedList<Alcohol>();
+        for(int i = 0; i < this.alcohols.length; i++) {
+            if (isGinebra(this.alcohols[i])) {
+                gins.add(this.alcohols[i]);
+            }
+        }
+        return gins;
+    }
+
+    public Alcohol getMaxMidaFundadors() {
+        LinkedList<Alcohol> gins = getGins();
+        Alcohol max = gins.get(0);
+        for (Alcohol a : gins) {
+            if (getMidaFundadors(max) < getMidaFundadors(a)) {
+                max = a;
+            }
+        }
+        return max;
+    }
+
+    public int getMidaFundadors(Alcohol alcohol) {
+        int total = 0;
+        int numFounders = alcohol.getFounders().length;
+        for (int i = 0; i < numFounders; i++) {
+            total += alcohol.getFounders()[i].getName().length();
+        }
+        return total;
+    }
+
+    public void showFullInformationAlcohol(Alcohol alcohol) {
+        System.out.println("Nom: " + alcohol.getNom());
+        System.out.println("Graduacio: " + alcohol.getGraduation());
+        System.out.println("Procedencia: " + alcohol.getProcedence());
+        System.out.println("Any: " + alcohol.getYear());
+        System.out.println("Tipus: " + getNomTipus(alcohol.getType()));
+        System.out.print("Fundadors: ");
+        int numFounders = alcohol.getFounders().length;
+        for (int i = 0; i < numFounders; i++) {
+            System.out.print(alcohol.getFounders()[i].getName());
+            if (i != numFounders - 1)
+                System.out.print(", ");
+        }
+        System.out.println();
+        System.out.print("Combinacions: ");
+        int numMixers = alcohol.getCombinations().length;
+        for(int i = 0; i < numMixers; i++) {
+            System.out.print(getNomMixer(alcohol.getCombinations()[i]));
+            if (i != numMixers - 1)
+                System.out.print(", ");
+        }
+        System.out.println("\n");
+    }
+
+    private String getNomTipus (int id) {
+        int numTipus = this.types.length;
+        for (int i = 0; i < numTipus; i++) {
+            if (this.types[i].getId() == id) {
+                return this.types[i].getName();
+            }
+        }
+        return "";
+    }
+
+    private String getNomMixer (int id) {
+        int numTipus = this.mixers.length;
+        for (int i = 0; i < numTipus; i++) {
+            if (this.mixers[i].getId() == id) {
+                return this.mixers[i].getName();
+            }
+        }
+        return "";
+    }
+
+
 }
