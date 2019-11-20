@@ -15,10 +15,40 @@ public class GestioConsultes {
                 Scanner scan = new Scanner(System.in);
                 option = scan.nextInt();
                 if (!validOption(option)) {
-                    System.out.println("Error, opcio invalida.\n");
+                    System.out.println("Error, opcio invalida. Introdueix una opcio valida (1-6).\n");
                 }
             } while (!validOption(option));
+            switch (option) {
+                case 1:
+                    calcularBegudesAlcoholiques();
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    break;
+                default:
+                    break;
+            }
         } while (option != 6);
+    }
+
+    public void calcularBegudesAlcoholiques() {
+        int numTipus = this.types.length;
+        int numAlcohols = 0;
+        for (int i = 0; i < numTipus; i++) {
+            numAlcohols = 0;
+            for (Alcohol a: this.alcohols) {
+                if (a.getType() == this.types[i].getId()) {
+                    ++numAlcohols;
+                }
+            }
+            System.out.println(this.types[i].getName() + ": " + numAlcohols);
+        }
+        System.out.println();
     }
 
     private boolean validOption(int option) {
