@@ -187,7 +187,42 @@ public class GestioConsultes {
 
     // Mostrar un top 3 de les combinacions (alcohol + mixer) més repetides
     public void getTop3Combinacions() {
-        Map<String,Double> map = new HashMap<>();
+        Map<String,Integer> mapCombinacions = new HashMap<>();
+
+        for (Alcohol a : this.alcohols) {
+            int[] combinacions = a.getCombinations();
+            for (int i = 0; i < combinacions.length; i++) {
+                String combinacio = a.getType() + "-" + combinacions[i];
+                mapCombinacions.put(combinacio,
+                        !mapCombinacions.containsKey(combinacio) ? 1 : mapCombinacions.get(combinacio) + 1
+                );
+            }
+        }
+        Map<String, Integer> sorted = mapCombinacions
+                .entrySet()
+                .stream()
+                .sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
+                .collect(toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e2, LinkedHashMap::new));
+
+        int j = 0;
+        System.out.println("Nom de tipus - Numero de repeticions");
+        for (Map.Entry<String, Integer> entry : sorted.entrySet()) {
+            System.out.println(getNomTipus(atoi(entry.getKey().substring(0,1)))
+                    + " + " + getNomMixer(atoi(entry.getKey().substring(entry.getKey().length() - 1)))
+                    + " - "
+                    + entry.getValue());
+            if (j == 2)
+                break;
+            j++;
+        }
+        System.out.println();
+    }
+
+    private int atoi(String num) {
+        int result = 0;
+        for (int i = 0; i < num.length(); i++)
+            result = result * 10 + num.charAt(i) - '0';
+        return result;
     }
 
     // Mostrar un top 3 dels mixers on la mitjana dels graus de les begudes amb les que es barregen sigui major
