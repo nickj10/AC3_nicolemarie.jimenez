@@ -131,9 +131,11 @@ public class GestioConsultes {
     // Calcula la mida total dels noms dels fundadors de l'alcohol
     private int getMidaFundadors(Alcohol alcohol) {
         int total = 0;
-        int numFounders = alcohol.getFounders().length;
-        for (int i = 0; i < numFounders; i++) {
-            total += alcohol.getFounders()[i].getName().length();
+        if (alcohol != null) {
+            int numFounders = alcohol.getFounders().length;
+            for (int i = 0; i < numFounders; i++) {
+                total += alcohol.getFounders()[i].getName().length();
+            }
         }
         return total;
     }
