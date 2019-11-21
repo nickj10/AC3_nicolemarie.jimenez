@@ -1,7 +1,9 @@
 package com.ac3.comandaAlcohol;
 
-import java.util.LinkedList;
-import java.util.Scanner;
+import java.text.DecimalFormat;
+import java.util.*;
+
+import static java.util.stream.Collectors.toMap;
 
 public class GestioConsultes {
     private Alcohol[] alcohols;
@@ -30,8 +32,10 @@ public class GestioConsultes {
                     showFullInformationAlcohol(getMaxMidaFundadors());
                     break;
                 case 4:
+                    getTop3Combinacions();
                     break;
                 case 5:
+                    getTop3Mixers();
                     break;
                 default:
                     break;
@@ -159,7 +163,7 @@ public class GestioConsultes {
         System.out.println("\n");
     }
 
-
+    // Agafar el nom del tipus de beguda alcohòlica
     private String getNomTipus (int id) {
         int numTipus = this.types.length;
         for (int i = 0; i < numTipus; i++) {
@@ -170,6 +174,7 @@ public class GestioConsultes {
         return "";
     }
 
+    // Agafar el nom del mixer
     private String getNomMixer (int id) {
         int numTipus = this.mixers.length;
         for (int i = 0; i < numTipus; i++) {
@@ -180,5 +185,54 @@ public class GestioConsultes {
         return "";
     }
 
+    // Mostrar un top 3 de les combinacions (alcohol + mixer) més repetides
+    public void getTop3Combinacions() {
+        Map<String,Double> map = new HashMap<>();
+    }
+
+    // Mostrar un top 3 dels mixers on la mitjana dels graus de les begudes amb les que es barregen sigui major
+    public void getTop3Mixers() {
+        Map<Integer,Double> mapMixers = new HashMap<>();
+        Map<Integer,Integer> mapQuantity = new HashMap<>();
+
+        // Calcula el total dels graus i calcula la quantitat de begudes per a cada mixer
+        for (Alcohol a: this.alcohols) {
+            int[] combinacions = a.getCombinations();
+            for (int i = 0; i < combinacions.length; i++) {
+                mapMixers.put(
+                        combinacions[i],
+                        !mapMixers.containsKey(combinacions[i]) ?
+                        a.getGraduation() : mapMixers.get(combinacions[i]) + a.getGraduation()
+                );
+                mapQuantity.put(combinacions[i],
+                        !mapQuantity.containsKey(combinacions[i]) ? 1 : mapQuantity.get(combinacions[i]) + 1
+                );
+            }
+        }
+
+        // Calcular la mitjana dels graus per cada mixer
+        for (Map.Entry<Integer, Double> entry : mapMixers.entrySet()) {
+            mapMixers.put(entry.getKey(), entry.getValue() / mapQuantity.get(entry.getKey()));
+        }
+
+        // Ordenar per la mitjana dels graus de begudes
+        Map<Integer, Double> sorted = mapMixers
+                .entrySet()
+                .stream()
+                .sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
+                .collect(toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e2, LinkedHashMap::new));
+
+        // Mostrar top 3 mixers amb la mitjana major de graus
+        int j = 0;
+        DecimalFormat df = new DecimalFormat("#.##");
+        System.out.println("Nom de mixer - Mitjana de graus");
+        for (Map.Entry<Integer, Double> entry : sorted.entrySet()) {
+            System.out.println(getNomMixer(entry.getKey()) + " - " + df.format(entry.getValue()));
+            if (j == 2)
+                break;
+            j++;
+        }
+        System.out.println();
+    }
 
 }
