@@ -189,7 +189,7 @@ public class GestioConsultes {
 
     // Mostrar un top 3 de les combinacions (alcohol + mixer) més repetides
     public void getTop3Combinacions() {
-        Map<String,Integer> mapCombinacions = new HashMap<>();
+        Map<String,Integer> mapCombinacions = new HashMap<String,Integer>();
 
         for (Alcohol a : this.alcohols) {
             int[] combinacions = a.getCombinations();
@@ -229,8 +229,8 @@ public class GestioConsultes {
 
     // Mostrar un top 3 dels mixers on la mitjana dels graus de les begudes amb les que es barregen sigui major
     public void getTop3Mixers() {
-        Map<Integer,Double> mapMixers = new HashMap<>();
-        Map<Integer,Integer> mapQuantity = new HashMap<>();
+        Map<Integer,Double> mapMixers = new HashMap<Integer,Double>();
+        Map<Integer,Integer> mapQuantity = new HashMap<Integer, Integer>();
 
         // Calcula el total dels graus i calcula la quantitat de begudes per a cada mixer
         for (Alcohol a: this.alcohols) {
