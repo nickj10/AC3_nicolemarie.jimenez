@@ -191,6 +191,7 @@ public class GestioConsultes {
     public void getTop3Combinacions() {
         Map<String,Integer> mapCombinacions = new HashMap<String,Integer>();
 
+        // Calcular les repeticions per cada combinacio
         for (Alcohol a : this.alcohols) {
             int[] combinacions = a.getCombinations();
             for (int i = 0; i < combinacions.length; i++) {
@@ -200,14 +201,17 @@ public class GestioConsultes {
                 );
             }
         }
+
+        // Ordenar pel nombre de repeticions
         Map<String, Integer> sorted = mapCombinacions
                 .entrySet()
                 .stream()
                 .sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
                 .collect(toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e2, LinkedHashMap::new));
 
+        // Mostrar top 3 combinacions per pantalla
         int j = 0;
-        System.out.println("Nom de tipus - Numero de repeticions");
+        System.out.println("Nom de combinacio - Numero de repeticions");
         for (Map.Entry<String, Integer> entry : sorted.entrySet()) {
             System.out.println(getNomTipus(atoi(entry.getKey().substring(0,1)))
                     + " + " + getNomMixer(atoi(entry.getKey().substring(entry.getKey().length() - 1)))
