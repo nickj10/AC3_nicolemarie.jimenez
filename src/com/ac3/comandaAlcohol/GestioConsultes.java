@@ -46,6 +46,11 @@ public class GestioConsultes {
         } while (option != 6);
     }
 
+    /**
+     * Aquest mètode verifica si és una opció valida o no.
+     * @param option l'opció introduïda per l'usuari.
+     * @return true si està dins del rang 1 - 6.
+     */
     private boolean validOption(int option) {
         return (option >= 1 && option <= 6);
     }
