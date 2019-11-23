@@ -73,7 +73,7 @@ public class GestioConsultes {
      */
     public void calcularBegudesAlcoholiques() {
         int numTipus = this.types.length;
-        int numAlcohols = 0;
+        int numAlcohols;
         for (int i = 0; i < numTipus; i++) {
             numAlcohols = 0;
             for (Alcohol a: this.alcohols) {
@@ -124,7 +124,7 @@ public class GestioConsultes {
 
     /**
      * Aquest mètode verifica si una beguda alcohòlica és de tipus Gin.
-     * @param alcohol
+     * @param alcohol la beguda alcohòlica que es verificarà.
      * @return true si el tipus de l'alcohol és Gin.
      */
     private boolean isGinebra(Alcohol alcohol) {
