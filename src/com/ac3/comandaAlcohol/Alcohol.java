@@ -1,5 +1,9 @@
 package com.ac3.comandaAlcohol;
 
+/**
+ * Representa l'alcohol per al sopar de La Salle Fest.
+ * @author Nicole Marie Jimenez
+ */
 public class Alcohol {
     private String nom;
     private double graduation;

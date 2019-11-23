@@ -1,5 +1,9 @@
 package com.ac3.comandaAlcohol;
 
+/**
+ * Representa la combinació que es pot barrejar amb la beguda alcohòlica.
+ * @author Nicole Marie Jimenez
+ */
 public class Mixer {
     private int id;
     private String name;

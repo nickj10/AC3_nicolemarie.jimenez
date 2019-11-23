@@ -2,9 +2,12 @@ package com.ac3.comandaAlcohol;
 
 import java.text.DecimalFormat;
 import java.util.*;
-
 import static java.util.stream.Collectors.toMap;
 
+/**
+ * Aquesta classe gestiona les consultes relacionades amb les begudes alcohòliques, les combinacions i els seus tipus.
+ * @author Nicole Marie Jimenez
+ */
 public class GestioConsultes {
     private Alcohol[] alcohols;
     private Type[] types;
@@ -47,7 +50,9 @@ public class GestioConsultes {
         return (option >= 1 && option <= 6);
     }
 
-    // Imprimir el menu principal per pantalla
+    /**
+     *  Aquest mètode imprimeix el menu principal per pantalla.
+     */
     public void printMenu() {
         System.out.println("1. Calcular quantes begudes alcoholiques hi ha de cada tipus.");
         System.out.println("2. Mostrar una llista de begudes destilades (25-60) que es poden barrejar amb cola.");
@@ -58,7 +63,9 @@ public class GestioConsultes {
         System.out.println("Selecciona una opcio: ");
     }
 
-    // Calcular el número de begudes alcoholiques de cada tipus
+    /**
+     * Aquest mètode calcula el número de begudes alcoholiques de cada tipus.
+     */
     public void calcularBegudesAlcoholiques() {
         int numTipus = this.types.length;
         int numAlcohols = 0;
@@ -74,7 +81,9 @@ public class GestioConsultes {
         System.out.println();
     }
 
-    // Imprimir totes les begudes destillades que es poden combinar amb cola
+    /**
+     * Imprimir totes les begudes destillades que es poden combinar amb cola.
+     */
     public void showDestilladesAmbCola() {
         for (Alcohol a: this.alcohols) {
             if(esDestillada(a) && canBeMixedWithCola(a)) {
@@ -84,12 +93,20 @@ public class GestioConsultes {
         System.out.println();
     }
 
-    // Verifica si una beguda és destil·lada o no
+    /**
+     * Aquest mètode verifica si una beguda és destil·lada o no.
+     * @param alcohol la beguda alcohòlica a verificar.
+     * @return true si la beguda és destil·lada
+     */
     private boolean esDestillada(Alcohol alcohol) {
         return (alcohol.getGraduation() >= 25 && alcohol.getGraduation() <= 60);
     }
 
-    // Verifica si una beguda es pot combinar amb cola
+    /**
+     * Aquest mètode verifica si una beguda es pot combinar amb cola.
+     * @param alcohol la beguda alcohòlica a verificar.
+     * @return true si la beguda es pot barrejar amb cola.
+     */
     private boolean canBeMixedWithCola(Alcohol alcohol) {
         int[] combinations = alcohol.getCombinations();
         int numCombinations = combinations.length;
@@ -100,12 +117,19 @@ public class GestioConsultes {
         return false;
     }
 
-    // Verifica si una beguda és de tipus Gin
+    /**
+     * Aquest mètode verifica si una beguda alcohòlica és de tipus Gin.
+     * @param alcohol
+     * @return true si el tipus de l'alcohol és Gin.
+     */
     private boolean isGinebra(Alcohol alcohol) {
         return getNomTipus(alcohol.getType()).equals("Gin");
     }
 
-    // Agafa totes les begudes alcohòliques de tipus Gin
+    /**
+     * Aquest mètode agafa totes les begudes alcohòliques de tipus Gin del catàleg d'alcohols.
+     * @return una llista de begudes alcohòliques de tipus Gin.
+     */
     private LinkedList<Alcohol> getGins() {
         LinkedList<Alcohol> gins = new LinkedList<Alcohol>();
         for(int i = 0; i < this.alcohols.length; i++) {
@@ -116,7 +140,10 @@ public class GestioConsultes {
         return gins;
     }
 
-    // Calcula quina beguda de tipus Gin té la major suma de la mida dels noms dels fundadors
+    /**
+     * Aquest mètode calcula quina beguda de tipus Gin té la major suma de la mida dels noms dels fundadors.
+     * @return la beguda alcohòlica que té la major suma de la mida dels noms dels fundadors.
+     */
     public Alcohol getMaxMidaFundadors() {
         LinkedList<Alcohol> gins = getGins();
         Alcohol max = gins.get(0);
@@ -128,7 +155,11 @@ public class GestioConsultes {
         return max;
     }
 
-    // Calcula la mida total dels noms dels fundadors de l'alcohol
+    /**
+     * Aquest mètode calcula el total de les mides dels noms dels fundadors de l'alcohol.
+     * @param alcohol la beguda alcohòlica de la qual calculem la mida dels noms dels fundadors.
+     * @return la mida total dels tots els noms dels fundadors de l'alcohol.
+     */
     private int getMidaFundadors(Alcohol alcohol) {
         int total = 0;
         if (alcohol != null) {
@@ -140,7 +171,10 @@ public class GestioConsultes {
         return total;
     }
 
-    // Mostra per pantalla la informacio de la beguda alcoholica
+    /**
+     * Aquest mètode mostra per pantalla la tota informació de la beguda alcoholica.
+     * @param alcohol la beguda alcoholica de la qual es mostra la informació.
+     */
     public void showFullInformationAlcohol(Alcohol alcohol) {
         System.out.println("Nom: " + alcohol.getNom());
         System.out.println("Graduacio: " + alcohol.getGraduation());
@@ -165,7 +199,11 @@ public class GestioConsultes {
         System.out.println("\n");
     }
 
-    // Agafar el nom del tipus de beguda alcohòlica
+    /**
+     * Aquest mètode agafa el nom del tipus d'alcohol segons l'id.
+     * @param id el identificador del tipus.
+     * @return el nom del tipus d'alcohol.
+     */
     private String getNomTipus (int id) {
         int numTipus = this.types.length;
         for (int i = 0; i < numTipus; i++) {
@@ -176,7 +214,11 @@ public class GestioConsultes {
         return "";
     }
 
-    // Agafar el nom del mixer
+    /**
+     * Aquest mètode agafa el nom del mixer segons l'id.
+     * @param id el identificador del mixer.
+     * @return el nom del mixer.
+     */
     private String getNomMixer (int id) {
         int numTipus = this.mixers.length;
         for (int i = 0; i < numTipus; i++) {
@@ -187,7 +229,9 @@ public class GestioConsultes {
         return "";
     }
 
-    // Mostrar un top 3 de les combinacions (alcohol + mixer) més repetides
+    /**
+     * Aquest mètode mostra el top 3 de les combinacions (alcohol + mixer) més repetides.
+     */
     public void getTop3Combinacions() {
         Map<String,Integer> mapCombinacions = new HashMap<String,Integer>();
 
@@ -224,6 +268,11 @@ public class GestioConsultes {
         System.out.println();
     }
 
+    /**
+     * Aquest mètode converteix un string a un nombre enter.
+     * @param num el string que representa un nombre enter.
+     * @return el nombre enter convertit. Si no es converteix, retorna un zero.
+     */
     private int atoi(String num) {
         int result = 0;
         for (int i = 0; i < num.length(); i++)
@@ -231,7 +280,10 @@ public class GestioConsultes {
         return result;
     }
 
-    // Mostrar un top 3 dels mixers on la mitjana dels graus de les begudes amb les que es barregen sigui major
+    /**
+     * Aquest mètode mostra el top 3 dels mixers on la mitjana dels graus de les begudes amb les que
+     * es barregen sigui major.
+     */
     public void getTop3Mixers() {
         Map<Integer,Double> mapMixers = new HashMap<Integer,Double>();
         Map<Integer,Integer> mapQuantity = new HashMap<Integer, Integer>();

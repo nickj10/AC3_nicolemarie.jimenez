@@ -1,5 +1,9 @@
 package com.ac3.comandaAlcohol;
 
+/**
+ * Representa el tipus de l'alcohol.
+ * @author Nicole Marie Jimenez
+ */
 public class Type {
     private int id;
     private String name;

@@ -1,5 +1,9 @@
 package com.ac3.comandaAlcohol;
 
+/**
+ * Representa el fundador d'un alcohol.
+ * @author Nicole Marie Jimenez
+ */
 public class Founder {
     private String name;
     private int born;
