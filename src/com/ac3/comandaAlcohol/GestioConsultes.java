@@ -181,27 +181,27 @@ public class GestioConsultes {
      * @param alcohol la beguda alcoholica de la qual es mostra la informació.
      */
     public void showFullInformationAlcohol(Alcohol alcohol) {
-        System.out.println("Nom: " + alcohol.getNom());
-        System.out.println("Graduacio: " + alcohol.getGraduation());
-        System.out.println("Procedencia: " + alcohol.getProcedence());
-        System.out.println("Any: " + alcohol.getYear());
-        System.out.println("Tipus: " + getNomTipus(alcohol.getType()));
-        System.out.print("Fundadors: ");
+        System.out.println("Nom: <" + alcohol.getNom() + ">");
+        System.out.println("Graduacio: <" + alcohol.getGraduation() + ">");
+        System.out.println("Procedencia: <" + alcohol.getProcedence() + ">");
+        System.out.println("Any: <" + alcohol.getYear() + ">");
+        System.out.println("Tipus: <" + getNomTipus(alcohol.getType()) + ">");
+        System.out.print("Fundadors: <");
         int numFounders = alcohol.getFounders().length;
         for (int i = 0; i < numFounders; i++) {
             System.out.print(alcohol.getFounders()[i].getName());
             if (i != numFounders - 1)
                 System.out.print(", ");
         }
-        System.out.println();
-        System.out.print("Combinacions: ");
+        System.out.println(">");
+        System.out.print("Combinacions: <");
         int numMixers = alcohol.getCombinations().length;
         for(int i = 0; i < numMixers; i++) {
             System.out.print(getNomMixer(alcohol.getCombinations()[i]));
             if (i != numMixers - 1)
                 System.out.print(", ");
         }
-        System.out.println("\n");
+        System.out.println(">\n");
     }
 
     /**
